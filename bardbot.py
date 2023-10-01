@@ -19,26 +19,26 @@ cookie_dict = {
 
 bard = BardCookies(cookie_dict=cookie_dict)
 
-# Initialize the Speech Recognition engine
+
 recognizer = sr.Recognizer()
 
 while True:
-    # Capture voice input
+    
     with sr.Microphone() as source:
         print("Listening...")
         recognizer.adjust_for_ambient_noise(source)
         audio = recognizer.listen(source, timeout=0.3)
     
     try:
-        # Recognize the speech and convert it to text
+        
         query = recognizer.recognize_google(audio)
         print("You said:", query)
         
-        # Get the reply from Bard
+        
         reply = bard.get_answer(query)['content']
         print("Bard replied:", reply)
         
-        # Speak the reply
+        
         speak(reply)
         
     except sr.UnknownValueError:
