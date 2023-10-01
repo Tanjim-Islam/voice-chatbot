@@ -24,7 +24,7 @@ while True:
         print("\nlistening...")
         r.adjust_for_ambient_noise(source, duration=0.2)
 
-        # Try to capture the audio input
+        
         try:
             audio = r.listen(source, timeout=0.2)
             print("Audio captured.")
@@ -45,16 +45,16 @@ while True:
     except:
         continue
     
-    # Detect the language of the user input
+    
     lang = translator.detect(user_input).lang
 
-    # If the detected language is Bengali (bn), translate the input to English
+    
     if lang == 'bn':
         user_input = translator.translate(user_input, dest='en').text
 
     prompt = user_name + ": " + user_input + "\n" + bot_name+ ": "
 
-    conversation += prompt  # allows for context
+    conversation += prompt  
 
     # fetch response from open AI api
     response = openai.Completion.create(engine='text-davinci-003', prompt=conversation, max_tokens=100)
@@ -63,7 +63,7 @@ while True:
 
     conversation += response_str + "\n"
 
-    # If the original input was in Bengali, translate the response back to Bengali
+    
     if lang == 'bn':
         response_str = translator.translate(response_str, dest='bn').text
 
